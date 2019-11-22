@@ -1,0 +1,20 @@
+{
+    "CN": "127.0.0.1",
+    "hosts": [
+        "127.0.0.1",
+        "localhost",
+	"traefik"
+    ],
+    "key": {
+        "algo": "ecdsa",
+        "size": 256
+    },
+    "names": [
+        {
+            "C": "US",
+            "L": "CA",
+            "ST": "San Francisco"
+        }
+    ]
+}
+

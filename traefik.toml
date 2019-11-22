@@ -1,0 +1,27 @@
+[entryPoints]
+  [entryPoints.grpc]
+    address = ":5000"
+  [entryPoints.metrics]
+    address = ":5002"
+  [entryPoints.ping]
+    address = ":5003"
+  [entryPoints.dashboard]
+    address = ":5004"
+
+[api]
+
+# Configuring a buffer of 100 lines
+[accessLog]
+  bufferingSize = 100
+
+[log]
+
+[metrics]
+  [metrics.prometheus]
+    entryPoint = "metrics"
+
+[ping]
+  entryPoint = "ping"
+
+[providers.file]
+  filename = "/workdir/dynamic.toml"

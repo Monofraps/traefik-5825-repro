@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "google/protobuf/any.proto";
+package test;
+
+option java_package = "traefik.repro";
+option java_multiple_files = true;
+option optimize_for = SPEED;
+
+message Test {
+    int32 number = 1;
+}
+
+service TestService {
+    rpc TestMethod (Test) returns (Test);
+}

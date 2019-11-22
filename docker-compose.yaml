@@ -1,0 +1,22 @@
+version: '3'
+services:
+  traefik:
+    image: traefik:v2.0.4
+    entrypoint: ['traefik', '--configfile', '/workdir/traefik.toml']
+    volumes:
+    - .:/workdir
+    networks: ['traefik_repro']
+  server:
+    image: gradle:6.0.1-jdk11
+    working_dir: /workdir
+    entrypoint: ['gradle', '--no-daemon', '--console=plain', 'run']
+    volumes:
+    - .:/workdir
+    networks: ['traefik_repro']
+networks:
+  traefik_repro:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: "10.9.0.0/24"

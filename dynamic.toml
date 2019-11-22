@@ -1,0 +1,33 @@
+[[tls.certificates]]
+  certFile = "/workdir/certs/server.pem"
+  keyFile = "/workdir/certs/server-key.pem"
+
+[tls.stores]
+  [tls.stores.default]
+    [tls.stores.default.defaultCertificate]
+      certFile = "/workdir/certs/server.pem"
+      keyFile = "/workdir/certs/server-key.pem"
+
+[tls.options]
+  [tls.options.default]
+    [tls.options.default.clientAuth]
+      caFiles = ["/workdir/certs/ca.pem"]
+      clientAuthType = "RequireAndVerifyClientCert"
+
+[http]
+  [http.routers]
+    [http.routers.login]
+      entryPoints = ["grpc"]
+      service = "login"
+      rule = "PathPrefix(`/test`)"
+      [http.routers.login.tls]
+    [http.routers.dashboard]
+      entryPoints = ["dashboard"]
+      service = "api@internal"
+      rule = "PathPrefix(`/`)"
+
+  [http.services]
+    [http.services.login]
+      [http.services.login.loadBalancer]
+        [[http.services.login.loadBalancer.servers]]
+          url = "h2c://server:5001"
